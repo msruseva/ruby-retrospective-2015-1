@@ -1,43 +1,43 @@
 def move(snake, direction)
-  snake_new = snake[1..-1]
-  grow(snake_new, direction)
+  grow(snake, direction).drop(1)
 end
 
 def grow(snake, direction)
-  snake_new = snake.dup
-  head = new_head(snake, direction)
-  snake_new.push(head)
+  snake + [new_head(snake_head(snake), direction)]
 end
 
-def new_head(snake, direction)
-  old_head = snake[-1]
-  [old_head[0] + direction[0], old_head[1] + direction[1]]
+def snake_head(snake)
+  snake[-1]
+end
+
+def new_head(head, direction)
+  [head[0] + direction[0], head[1] + direction[1]]
 end
 
 def new_food(food, snake, dimensions)
-  field = new_field(dimensions)
-  while snake.include?(field) or food.include?(field) do
-    field = new_field(dimensions)
+  position = new_position(dimensions)
+  while snake.include?(position) or food.include?(position) do
+    position = new_position(dimensions)
   end
-  field
+  position
 end
 
-def new_field(dimensions)
+def new_position(dimensions)
   xs = rand(dimensions[:width])
   ys = rand(dimensions[:height])
   [xs, ys]
 end
 
 def obstacle_ahead?(snake, direction, dimensions)
-  head = new_head(snake, direction)
+  head = new_head(snake_head(snake), direction)
   snake.include?(head) or wall?(head, dimensions)
 end
 
-def wall?(head, dimensions)
-  return true if head[0] < 0
-  return true if head[0] >= dimensions[:width]
-  return true if head[1] < 0
-  return true if head[1] >= dimensions[:height]
+def wall?(position, dimensions)
+  return true if position[0] < 0
+  return true if position[0] >= dimensions[:width]
+  return true if position[1] < 0
+  return true if position[1] >= dimensions[:height]
   return false
 end
 
