@@ -31,7 +31,7 @@ class RationalSequence
       @denominator += 1
       @nominator -= 1
     elsif @direction == :left
-      @denominator -=1
+      @denominator -= 1
       @nominator += 1
     end
   end
@@ -109,7 +109,7 @@ module DrunkenMathematician
         group_two << rat
       end
     end
-    group_one.reduce(1, :*)/group_two.reduce(1, :*)
+    group_one.reduce(1, :*) / group_two.reduce(1, :*)
   end
 
   def aimless(n)
