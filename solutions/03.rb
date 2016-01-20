@@ -94,11 +94,11 @@ module DrunkenMathematician
   module_function
 
   def meaningless(n)
-    rational = RationalSequence.new(n).partition do |r|
+    rationals = RationalSequence.new(n).partition do |r|
       r.numerator.is_prime? or r.denominator.is_prime?
     end
 
-    rational.first.inject(1, :*) / rational.last.inject(1, :*)
+    rationals.first.inject(1, :*) / rationals.last.inject(1, :*)
   end
 
   def aimless(n)
